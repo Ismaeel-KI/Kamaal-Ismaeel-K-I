@@ -192,11 +192,11 @@ export const portfolioData = {
   ],
 
   contact: {
-    email: "ismaeel.k@example.com",
+    email: "kamaal.ismaeel@example.com",
     phone: "+91 98765 43210",
     location: "India",
-    linkedin: "https://linkedin.com/in/ismaeel-k",
-    github: "https://github.com/ismaeel-k",
+    linkedin: "https://linkedin.com/in/kamaal-ismaeel",
+    github: "https://github.com/kamaal-ismaeel",
     availability: "Open to internships and full-time opportunities"
   }
 };
