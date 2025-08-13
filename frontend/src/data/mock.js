@@ -142,7 +142,7 @@ export const portfolioData = {
       codeUrl: "#",
       status: "Completed",
       year: "2024"
-    ]
+    }
   ],
 
   achievements: [
