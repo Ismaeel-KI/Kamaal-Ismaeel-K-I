@@ -13,7 +13,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center relative bg-gradient-to-b from-gray-900 via-slate-800 to-gray-900 overflow-hidden">
+    <section className="min-h-screen flex items-center justify-center relative bg-gradient-to-b from-gray-900 via-slate-800 to-gray-900 overflow-hidden pt-20">
       
       {/* Glowing orbs */}
       <div className="absolute top-20 left-20 w-32 h-32 bg-cyan-500/20 rounded-full blur-xl animate-pulse"></div>
