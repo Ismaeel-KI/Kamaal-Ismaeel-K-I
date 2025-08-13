@@ -1,14 +1,14 @@
 // Mock data for Ismaeel K.'s portfolio
 export const portfolioData = {
   personal: {
-    name: "Ismaeel K.",
+    name: "Kamaal Ismaeel K I",
     title: "Computer Science Student",
     year: "3rd Year BTech",
     location: "India",
-    email: "ismaeel.k@example.com",
+    email: "kamaal.ismaeel@example.com",
     phone: "+91 98765 43210",
-    linkedin: "https://linkedin.com/in/ismaeel-k",
-    github: "https://github.com/ismaeel-k",
+    linkedin: "https://linkedin.com/in/kamaal-ismaeel",
+    github: "https://github.com/kamaal-ismaeel",
     bio: "Passionate Computer Science student with expertise in full-stack development, data analysis, and AI solutions. Experienced in building scalable web applications, interactive dashboards, and intelligent automation tools. Strong background in Python, React, and modern web technologies with a focus on creating impactful solutions for real-world problems."
   },
 
