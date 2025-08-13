@@ -1,152 +1,138 @@
 import React, { useState } from 'react';
-import { ExternalLink, Github, Calendar, CheckCircle } from 'lucide-react';
+import { ExternalLink, Github, Calendar, CheckCircle, Star, Zap } from 'lucide-react';
 import portfolioData from '../../data/mock';
 
-const Projects = ({ isDark }) => {
+const Projects = () => {
   const { projects } = portfolioData;
   const [selectedProject, setSelectedProject] = useState(null);
 
   const ProjectCard = ({ project, onClick }) => (
     <div 
-      className={`border rounded-none overflow-hidden cursor-pointer transition-all hover:translate-y-[-4px] hover:shadow-xl ${
-        isDark 
-          ? 'border-gray-700 bg-gray-900 hover:shadow-green-400/10' 
-          : 'border-gray-200 bg-white hover:shadow-green-600/10'
-      }`}
+      className="group relative bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700/50 rounded-none overflow-hidden cursor-pointer transition-all duration-300 hover:border-cyan-500/50 hover:scale-[1.02] hover:shadow-xl hover:shadow-cyan-500/10"
       onClick={() => onClick(project)}
     >
-      <div className="aspect-video overflow-hidden">
+      {/* Image Container */}
+      <div className="aspect-video overflow-hidden relative">
         <img 
           src={project.image} 
           alt={project.title}
-          className="w-full h-full object-cover transition-transform hover:scale-105"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
-      </div>
-      
-      <div className="p-6">
-        <div className="flex items-center justify-between mb-3">
-          <span className={`font-mono text-xs font-normal uppercase tracking-wider ${
-            isDark ? 'text-green-400' : 'text-green-600'
-          }`}>
-            {project.year}
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300"></div>
+        
+        {/* Status Badge */}
+        <div className="absolute top-4 right-4 flex items-center space-x-2 bg-gray-900/80 border border-green-500/30 rounded-none px-3 py-1">
+          <CheckCircle size={12} className="text-green-400" />
+          <span className="text-xs font-mono uppercase tracking-wider text-green-400">
+            {project.status}
           </span>
-          <div className="flex items-center space-x-1">
-            <CheckCircle size={12} className={isDark ? 'text-green-400' : 'text-green-600'} />
-            <span className={`text-xs font-mono uppercase tracking-wider ${
-              isDark ? 'text-green-400' : 'text-green-600'
-            }`}>
-              {project.status}
-            </span>
-          </div>
         </div>
         
-        <h3 className={`text-xl font-normal mb-3 ${
-          isDark ? 'text-gray-100' : 'text-gray-900'
-        }`} style={{
-          fontSize: 'clamp(16px, 2.5vw, 30px)',
-          lineHeight: '1.2'
-        }}>
-          {project.title}
-        </h3>
+        {/* Year Badge */}
+        <div className="absolute top-4 left-4 bg-gray-900/80 border border-cyan-500/30 rounded-none px-3 py-1">
+          <span className="text-xs font-mono uppercase tracking-wider text-cyan-400">
+            {project.year}
+          </span>
+        </div>
+      </div>
+      
+      {/* Content */}
+      <div className="p-6 space-y-4">
+        <div className="flex items-start justify-between">
+          <h3 className="text-xl font-normal text-gray-200 group-hover:text-cyan-400 transition-colors" style={{
+            fontSize: 'clamp(16px, 2.5vw, 20px)',
+            lineHeight: '1.2'
+          }}>
+            {project.title}
+          </h3>
+          <Zap size={16} className="text-yellow-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        </div>
         
-        <p className={`text-sm mb-4 ${
-          isDark ? 'text-gray-300' : 'text-gray-700'
-        }`} style={{
-          fontSize: 'clamp(14px, 1.8vw, 18px)',
-          lineHeight: '1.33'
+        <p className="text-sm text-gray-400 leading-relaxed" style={{
+          fontSize: 'clamp(13px, 1.8vw, 14px)',
+          lineHeight: '1.5'
         }}>
           {project.description}
         </p>
         
-        <div className="flex flex-wrap gap-2 mb-4">
+        {/* Tech Stack */}
+        <div className="flex flex-wrap gap-2">
           {project.technologies.slice(0, 3).map((tech, index) => (
             <span 
               key={index}
-              className={`px-3 py-1 text-xs font-mono uppercase tracking-wider border rounded-none ${
-                isDark 
-                  ? 'border-gray-600 text-gray-300 bg-gray-800' 
-                  : 'border-gray-300 text-gray-700 bg-gray-50'
-              }`}
+              className="px-2 py-1 text-xs font-mono uppercase tracking-wider border border-gray-600 text-gray-300 bg-gray-800/50 hover:border-cyan-500/50 hover:text-cyan-400 transition-all duration-200"
             >
               {tech}
             </span>
           ))}
           {project.technologies.length > 3 && (
-            <span className={`px-3 py-1 text-xs font-mono uppercase tracking-wider ${
-              isDark ? 'text-gray-400' : 'text-gray-600'
-            }`}>
+            <span className="px-2 py-1 text-xs font-mono uppercase tracking-wider text-gray-500">
               +{project.technologies.length - 3} more
             </span>
           )}
         </div>
         
-        <div className="flex space-x-3">
-          <button className={`flex items-center space-x-2 px-4 py-2 border rounded-none font-mono text-xs uppercase tracking-wider transition-all hover:opacity-70 ${
-            isDark 
-              ? 'border-gray-700 text-gray-300 hover:bg-gray-800' 
-              : 'border-gray-300 text-gray-700 hover:bg-gray-100'
-          }`}>
+        {/* Action Buttons */}
+        <div className="flex space-x-3 pt-2">
+          <button className="flex items-center space-x-2 px-4 py-2 border border-gray-600 text-gray-300 font-mono text-xs uppercase tracking-wider transition-all hover:border-cyan-500 hover:text-cyan-400 hover:bg-cyan-500/10">
             <ExternalLink size={12} />
             <span>DEMO</span>
           </button>
-          <button className={`flex items-center space-x-2 px-4 py-2 border rounded-none font-mono text-xs uppercase tracking-wider transition-all hover:opacity-70 ${
-            isDark 
-              ? 'border-gray-700 text-gray-300 hover:bg-gray-800' 
-              : 'border-gray-300 text-gray-700 hover:bg-gray-100'
-          }`}>
+          <button className="flex items-center space-x-2 px-4 py-2 border border-gray-600 text-gray-300 font-mono text-xs uppercase tracking-wider transition-all hover:border-green-400 hover:text-green-400 hover:bg-green-400/10">
             <Github size={12} />
             <span>CODE</span>
           </button>
         </div>
       </div>
+      
+      {/* Hover Effect Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-transparent to-green-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
     </div>
   );
 
   const ProjectModal = ({ project, onClose }) => (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div 
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/70 backdrop-blur-md"
         onClick={onClose}
       ></div>
       
-      <div className={`relative max-w-4xl w-full max-h-[90vh] overflow-y-auto border rounded-none ${
-        isDark ? 'bg-gray-900 border-gray-700' : 'bg-white border-gray-200'
-      }`}>
-        <div className="p-8">
-          <div className="flex justify-between items-start mb-6">
-            <div>
-              <h2 className={`text-3xl font-normal mb-2 ${
-                isDark ? 'text-gray-100' : 'text-gray-900'
-              }`}>
-                {project.title}
-              </h2>
-              <div className="flex items-center space-x-4">
-                <span className={`font-mono text-xs uppercase tracking-wider ${
-                  isDark ? 'text-green-400' : 'text-green-600'
-                }`}>
-                  {project.year}
-                </span>
-                <div className="flex items-center space-x-1">
-                  <CheckCircle size={14} className={isDark ? 'text-green-400' : 'text-green-600'} />
-                  <span className={`text-sm ${isDark ? 'text-green-400' : 'text-green-600'}`}>
-                    {project.status}
-                  </span>
+      <div className="relative max-w-5xl w-full max-h-[90vh] overflow-y-auto bg-gradient-to-br from-gray-800 to-gray-900 border-2 border-cyan-500/30 rounded-none">
+        {/* Modal Header */}
+        <div className="p-8 border-b border-gray-700">
+          <div className="flex justify-between items-start">
+            <div className="flex-1">
+              <div className="flex items-center space-x-4 mb-4">
+                <h2 className="text-3xl font-normal text-gray-100">
+                  {project.title}
+                </h2>
+                <div className="flex items-center space-x-2 px-3 py-1 bg-green-500/20 border border-green-500/30 rounded-none">
+                  <CheckCircle size={14} className="text-green-400" />
+                  <span className="text-sm text-green-400 font-mono">{project.status}</span>
+                </div>
+              </div>
+              <div className="flex items-center space-x-6 text-sm">
+                <span className="font-mono text-cyan-400">{project.year}</span>
+                <div className="flex items-center space-x-2">
+                  <Star size={14} className="text-yellow-400" />
+                  <span className="text-gray-400">Featured Project</span>
                 </div>
               </div>
             </div>
             <button 
               onClick={onClose}
-              className={`p-2 border rounded-none transition-all hover:opacity-70 ${
-                isDark 
-                  ? 'border-gray-700 text-gray-300 hover:bg-gray-800' 
-                  : 'border-gray-300 text-gray-700 hover:bg-gray-100'
-              }`}
+              className="p-2 border border-gray-600 rounded-none text-gray-400 hover:border-red-500 hover:text-red-400 transition-all"
             >
               ×
             </button>
           </div>
-          
-          <div className="aspect-video mb-6 overflow-hidden">
+        </div>
+        
+        {/* Modal Content */}
+        <div className="p-8">
+          {/* Project Image */}
+          <div className="aspect-video mb-8 overflow-hidden border border-gray-700">
             <img 
               src={project.image} 
               alt={project.title}
@@ -154,28 +140,24 @@ const Projects = ({ isDark }) => {
             />
           </div>
           
-          <p className={`text-lg mb-6 ${
-            isDark ? 'text-gray-300' : 'text-gray-700'
-          }`}>
+          {/* Description */}
+          <p className="text-lg mb-8 text-gray-300 leading-relaxed">
             {project.longDescription}
           </p>
           
+          {/* Details Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-            <div>
-              <h3 className={`font-mono text-xs uppercase tracking-wider mb-4 ${
-                isDark ? 'text-green-400' : 'text-green-600'
-              }`}>
-                TECHNOLOGIES USED
+            {/* Technologies */}
+            <div className="bg-gray-800/40 border border-gray-700 rounded-none p-6">
+              <h3 className="font-mono text-xs uppercase tracking-wider mb-4 text-cyan-400 flex items-center">
+                <Code size={16} className="mr-2" />
+                TECH STACK
               </h3>
               <div className="flex flex-wrap gap-2">
                 {project.technologies.map((tech, index) => (
                   <span 
                     key={index}
-                    className={`px-3 py-1 text-sm border rounded-none ${
-                      isDark 
-                        ? 'border-gray-600 text-gray-300 bg-gray-800' 
-                        : 'border-gray-300 text-gray-700 bg-gray-50'
-                    }`}
+                    className="px-3 py-1 text-sm border border-gray-600 text-gray-300 bg-gray-800/50 hover:border-cyan-500/50 hover:text-cyan-400 transition-all"
                   >
                     {tech}
                   </span>
@@ -183,20 +165,16 @@ const Projects = ({ isDark }) => {
               </div>
             </div>
             
-            <div>
-              <h3 className={`font-mono text-xs uppercase tracking-wider mb-4 ${
-                isDark ? 'text-green-400' : 'text-green-600'
-              }`}>
+            {/* Features */}
+            <div className="bg-gray-800/40 border border-gray-700 rounded-none p-6">
+              <h3 className="font-mono text-xs uppercase tracking-wider mb-4 text-green-400 flex items-center">
+                <Star size={16} className="mr-2" />
                 KEY FEATURES
               </h3>
               <ul className="space-y-2">
                 {project.features.map((feature, index) => (
-                  <li key={index} className={`flex items-start space-x-2 text-sm ${
-                    isDark ? 'text-gray-300' : 'text-gray-700'
-                  }`}>
-                    <CheckCircle size={16} className={`mt-0.5 flex-shrink-0 ${
-                      isDark ? 'text-green-400' : 'text-green-600'
-                    }`} />
+                  <li key={index} className="flex items-start space-x-2 text-sm text-gray-300">
+                    <CheckCircle size={16} className="mt-0.5 flex-shrink-0 text-green-400" />
                     <span>{feature}</span>
                   </li>
                 ))}
@@ -204,22 +182,15 @@ const Projects = ({ isDark }) => {
             </div>
           </div>
           
+          {/* Action Buttons */}
           <div className="flex space-x-4">
-            <button className={`flex items-center space-x-2 px-6 py-3 border-2 rounded-none font-mono text-sm uppercase tracking-wider transition-all hover:scale-105 ${
-              isDark 
-                ? 'bg-green-400 text-gray-900 border-green-400 hover:bg-green-500' 
-                : 'bg-green-600 text-white border-green-600 hover:bg-green-700'
-            }`}>
+            <button className="flex items-center space-x-2 px-8 py-4 bg-gradient-to-r from-cyan-500 to-green-400 text-gray-900 font-mono text-sm font-bold uppercase tracking-wider transition-all hover:scale-105">
               <ExternalLink size={16} />
-              <span>VIEW DEMO</span>
+              <span>VIEW LIVE DEMO</span>
             </button>
-            <button className={`flex items-center space-x-2 px-6 py-3 border rounded-none font-mono text-sm uppercase tracking-wider transition-all hover:opacity-70 ${
-              isDark 
-                ? 'border-gray-700 text-gray-300 hover:bg-gray-800' 
-                : 'border-gray-300 text-gray-700 hover:bg-gray-100'
-            }`}>
+            <button className="flex items-center space-x-2 px-8 py-4 border-2 border-cyan-500/50 text-cyan-400 font-mono text-sm font-bold uppercase tracking-wider transition-all hover:border-cyan-400 hover:bg-cyan-500/10">
               <Github size={16} />
-              <span>VIEW CODE</span>
+              <span>VIEW SOURCE</span>
             </button>
           </div>
         </div>
@@ -228,29 +199,33 @@ const Projects = ({ isDark }) => {
   );
 
   return (
-    <section id="projects" className={`py-20 ${
-      isDark ? 'bg-gray-800' : 'bg-white'
-    } transition-colors`}>
-      <div className="container mx-auto px-6">
-        {/* Section Label */}
-        <div className="mb-12">
-          <p className={`font-mono text-xs font-normal uppercase tracking-wider mb-4 ${
-            isDark ? 'text-green-400' : 'text-green-600'
-          }`}>
-            SELECTED WORK
-          </p>
-          <h2 className={`font-bold uppercase tracking-wide ${
-            isDark ? 'text-gray-100' : 'text-gray-900'
-          }`} style={{
-            fontSize: 'clamp(40px, 8vw, 150px)',
-            lineHeight: '1',
-            fontFamily: 'ui-sans-serif, system-ui, sans-serif'
-          }}>
+    <section id="projects" className="py-16 bg-gradient-to-b from-gray-900 to-slate-900 relative overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-radial from-purple-500/10 to-transparent blur-3xl"></div>
+      <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-gradient-radial from-cyan-500/10 to-transparent blur-3xl"></div>
+      
+      <div className="container mx-auto px-6 relative z-10">
+        {/* Section Header */}
+        <div className="mb-16 text-center">
+          <div className="flex items-center justify-center mb-4">
+            <div className="h-px bg-gradient-to-r from-transparent via-purple-400 to-transparent flex-1"></div>
+            <p className="font-mono text-xs font-normal uppercase tracking-wider mx-4 text-purple-400 bg-gray-900 px-4 py-1 border border-purple-500/30">
+              MISSION ARCHIVE
+            </p>
+            <div className="h-px bg-gradient-to-r from-transparent via-purple-400 to-transparent flex-1"></div>
+          </div>
+          <h2 className="font-bold uppercase tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-cyan-400 to-green-400"
+              style={{
+                fontSize: 'clamp(36px, 8vw, 120px)',
+                lineHeight: '1',
+                fontFamily: 'ui-sans-serif, system-ui, sans-serif',
+                textShadow: '0 0 30px rgba(168, 85, 247, 0.3)'
+              }}>
             PROJECTS
           </h2>
         </div>
 
-        {/* Projects Grid */}
+        {/* Projects Grid - More Compact */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project) => (
             <ProjectCard 
