@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Sun, Moon, Menu, X } from 'lucide-react';
+import { Menu, X, Zap } from 'lucide-react';
 
-const Header = ({ isDark, toggleTheme }) => {
+const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navItems = [
@@ -21,16 +21,17 @@ const Header = ({ isDark, toggleTheme }) => {
   };
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
-      isDark ? 'bg-gray-900/95 border-gray-800' : 'bg-gray-50/95 border-gray-200'
-    } backdrop-blur-sm border-b`}>
+    <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-gray-900/80 border-b border-cyan-500/20">
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          {/* Logo */}
-          <div className={`font-mono text-2xl font-normal uppercase tracking-wider transition-colors ${
-            isDark ? 'text-gray-100' : 'text-gray-900'
-          }`}>
-            ISMAEEL K.
+          {/* Logo with Gaming Style */}
+          <div className="flex items-center space-x-3">
+            <div className="p-2 bg-gradient-to-r from-cyan-500 to-green-400 rounded-none">
+              <Zap size={20} className="text-gray-900" />
+            </div>
+            <div className="font-mono text-xl font-bold uppercase tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-green-400">
+              KAMAAL K I
+            </div>
           </div>
 
           {/* Desktop Navigation */}
@@ -39,54 +40,31 @@ const Header = ({ isDark, toggleTheme }) => {
               <button
                 key={item.label}
                 onClick={() => scrollToSection(item.href)}
-                className={`font-mono text-xs font-normal uppercase tracking-wider transition-opacity hover:opacity-70 ${
-                  isDark ? 'text-gray-100' : 'text-gray-900'
-                }`}
+                className="relative font-mono text-xs font-normal uppercase tracking-wider text-gray-300 hover:text-cyan-400 transition-all duration-300 group"
               >
                 {item.label}
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-green-400 transition-all duration-300 group-hover:w-full"></span>
               </button>
             ))}
           </nav>
 
-          {/* Theme Toggle & Mobile Menu */}
-          <div className="flex items-center space-x-4">
-            <button
-              onClick={toggleTheme}
-              className={`p-2 rounded-none border transition-all hover:opacity-70 ${
-                isDark 
-                  ? 'border-gray-700 text-gray-100 hover:bg-gray-800' 
-                  : 'border-gray-300 text-gray-900 hover:bg-gray-100'
-              }`}
-            >
-              {isDark ? <Sun size={16} /> : <Moon size={16} />}
-            </button>
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className={`md:hidden p-2 rounded-none border transition-all hover:opacity-70 ${
-                isDark 
-                  ? 'border-gray-700 text-gray-100 hover:bg-gray-800' 
-                  : 'border-gray-300 text-gray-900 hover:bg-gray-100'
-              }`}
-            >
-              {isMenuOpen ? <X size={16} /> : <Menu size={16} />}
-            </button>
-          </div>
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="md:hidden p-2 rounded-none border border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10 transition-all"
+          >
+            {isMenuOpen ? <X size={16} /> : <Menu size={16} />}
+          </button>
         </div>
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <nav className={`md:hidden mt-6 pt-6 border-t ${
-            isDark ? 'border-gray-800' : 'border-gray-200'
-          }`}>
+          <nav className="md:hidden mt-6 pt-6 border-t border-cyan-500/20">
             {navItems.map((item) => (
               <button
                 key={item.label}
                 onClick={() => scrollToSection(item.href)}
-                className={`block w-full text-left py-3 font-mono text-xs font-normal uppercase tracking-wider transition-opacity hover:opacity-70 ${
-                  isDark ? 'text-gray-100' : 'text-gray-900'
-                }`}
+                className="block w-full text-left py-3 font-mono text-xs font-normal uppercase tracking-wider text-gray-300 hover:text-cyan-400 transition-all"
               >
                 {item.label}
               </button>
