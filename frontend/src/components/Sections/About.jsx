@@ -121,34 +121,34 @@ const About = () => {
             </div>
 
             {/* Current Focus */}
-            <div className="bg-gradient-to-r from-gray-800/40 via-gray-800/20 to-gray-800/40 border border-gray-700/50 rounded-2xl p-6 backdrop-blur-sm">
+            <div className="bg-gradient-to-r from-gray-800/40 via-gray-800/20 to-gray-800/40 border border-gray-700/50 rounded-2xl p-8 backdrop-blur-sm">
               <div className="flex items-center space-x-3 mb-6">
-                <div className="p-2 bg-gradient-to-r from-green-500/20 to-cyan-400/20 rounded-lg">
-                  <Target size={24} className="text-green-400" />
+                <div className="p-3 bg-gradient-to-r from-green-500/20 to-cyan-400/20 rounded-lg">
+                  <Target size={28} className="text-green-400" />
                 </div>
-                <h3 className="text-2xl font-bold text-white">Current Focus</h3>
+                <h3 className="text-3xl font-bold text-white">Current Focus</h3>
               </div>
               
-              <div className="space-y-4">
-                <div className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-cyan-400 rounded-full mt-2 animate-pulse"></div>
+              <div className="space-y-6">
+                <div className="flex items-start space-x-4">
+                  <div className="w-3 h-3 bg-cyan-400 rounded-full mt-2 animate-pulse"></div>
                   <div>
-                    <p className="text-white font-medium">AI-Powered Applications</p>
-                    <p className="text-gray-400 text-sm">Building intelligent solutions with GPT-4, Machine Learning, and NLP</p>
+                    <p className="text-white font-semibold text-lg mb-2">AI-Powered Applications</p>
+                    <p className="text-gray-400 text-base">Building intelligent solutions with GPT-4, Machine Learning, and NLP</p>
                   </div>
                 </div>
-                <div className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-green-400 rounded-full mt-2 animate-pulse"></div>
+                <div className="flex items-start space-x-4">
+                  <div className="w-3 h-3 bg-green-400 rounded-full mt-2 animate-pulse"></div>
                   <div>
-                    <p className="text-white font-medium">Scalable Architecture</p>
-                    <p className="text-gray-400 text-sm">Designing microservices and cloud-native applications</p>
+                    <p className="text-white font-semibold text-lg mb-2">Scalable Architecture</p>
+                    <p className="text-gray-400 text-base">Designing microservices and cloud-native applications</p>
                   </div>
                 </div>
-                <div className="flex items-start space-x-3">
-                  <div className="w-2 h-2 bg-purple-400 rounded-full mt-2 animate-pulse"></div>
+                <div className="flex items-start space-x-4">
+                  <div className="w-3 h-3 bg-purple-400 rounded-full mt-2 animate-pulse"></div>
                   <div>
-                    <p className="text-white font-medium">Full-Time Opportunities</p>
-                    <p className="text-gray-400 text-sm">Seeking to join innovative teams building the future</p>
+                    <p className="text-white font-semibold text-lg mb-2">Full-Time Opportunities</p>
+                    <p className="text-gray-400 text-base">Seeking to join innovative teams building the future</p>
                   </div>
                 </div>
               </div>
