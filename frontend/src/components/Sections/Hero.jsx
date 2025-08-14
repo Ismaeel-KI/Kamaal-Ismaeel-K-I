@@ -66,7 +66,7 @@ const Hero = () => {
         <div className="mb-8 relative">
           <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-4 w-40 h-1 bg-gradient-to-r from-transparent via-cyan-400 to-transparent"></div>
           
-          <h1 className="group font-bold uppercase tracking-wide mb-4 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-green-400 to-purple-400 relative cursor-pointer transition-all duration-300 hover:from-green-400 hover:via-cyan-400 hover:to-pink-400"
+          <h1 className="group name-hover-effect font-bold uppercase tracking-wide mb-4 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-green-400 to-purple-400 relative cursor-pointer transition-all duration-500 hover:from-green-400 hover:via-cyan-400 hover:to-pink-400"
               style={{
                 fontSize: 'clamp(40px, 10vw, 160px)',
                 lineHeight: '1.1',
@@ -76,13 +76,13 @@ const Hero = () => {
             {personal.name}
             
             {/* Enhanced glitch overlay with hover effects */}
-            <span className="absolute inset-0 text-red-500/20 opacity-0 group-hover:opacity-100 group-hover:text-pink-500/30 transition-all duration-300" 
+            <span className="absolute inset-0 text-red-500/20 opacity-0 group-hover:opacity-100 group-hover:text-pink-500/40 transition-all duration-500" 
                   style={{clipPath: 'inset(20% 0 30% 0)'}}>
               {personal.name}
             </span>
             
             {/* Hover glow effect */}
-            <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+            <span className="absolute inset-0 opacity-0 group-hover:opacity-50 transition-opacity duration-700"
                   style={{
                     background: 'linear-gradient(45deg, #06b6d4, #10b981, #8b5cf6)',
                     backgroundClip: 'text',
