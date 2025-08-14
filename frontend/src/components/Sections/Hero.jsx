@@ -140,7 +140,7 @@ const Hero = () => {
         </p>
 
         {/* Enhanced Tech Stack Icons */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
+        <div className="flex flex-wrap justify-center gap-6 mb-16">
           {[
             { icon: Terminal, color: 'text-cyan-400', name: 'BACKEND', bg: 'from-cyan-500/20 to-cyan-600/20' },
             { icon: Code, color: 'text-green-400', name: 'FRONTEND', bg: 'from-green-500/20 to-green-600/20' },
@@ -152,7 +152,7 @@ const Hero = () => {
               <div className={`p-4 bg-gradient-to-r ${item.bg} border border-gray-600/30 rounded-lg transition-all duration-300 hover:border-${item.color.split('-')[1]}-500/50 hover:scale-110 hover:rotate-3`}>
                 <item.icon size={28} className={`${item.color} group-hover:drop-shadow-2xl transition-all duration-300`} />
               </div>
-              <span className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 text-xs font-mono text-gray-500 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-gray-800 px-2 py-1 rounded border border-gray-700">
+              <span className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 text-xs font-mono text-gray-500 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-gray-800 px-2 py-1 rounded border border-gray-700 whitespace-nowrap">
                 {item.name}
               </span>
             </div>
