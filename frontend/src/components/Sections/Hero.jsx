@@ -128,7 +128,7 @@ const Hero = () => {
         </div>
 
         {/* Enhanced Bio */}
-        <p className="text-lg md:text-xl lg:text-2xl mb-10 max-w-5xl mx-auto leading-relaxed text-gray-300 font-light"
+        <p className="text-lg md:text-xl lg:text-2xl mb-12 max-w-5xl mx-auto leading-relaxed text-gray-300 font-light text-center"
            style={{
              fontSize: 'clamp(16px, 2.2vw, 22px)',
              lineHeight: '1.6'
