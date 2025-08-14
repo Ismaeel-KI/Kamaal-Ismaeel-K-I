@@ -210,9 +210,9 @@ const About = () => {
 
             {/* Call to Action */}
             <div className="text-center pt-8">
-              <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-cyan-500/10 to-green-400/10 border border-cyan-500/30 rounded-full px-6 py-3">
-                <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                <span className="font-mono text-sm text-gray-300">Ready to create something amazing together?</span>
+              <div className="inline-flex items-center space-x-3 bg-gradient-to-r from-cyan-500/10 to-green-400/10 border border-cyan-500/30 rounded-full px-8 py-4">
+                <div className="w-4 h-4 bg-green-400 rounded-full animate-pulse"></div>
+                <span className="font-mono text-lg text-gray-300 font-medium">Ready to create something amazing together?</span>
               </div>
             </div>
           </div>
