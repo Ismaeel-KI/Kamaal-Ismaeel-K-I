@@ -182,27 +182,27 @@ const About = () => {
 
             {/* Professional Values */}
             <div className="bg-gradient-to-br from-gray-800/40 to-gray-900/40 border border-gray-700/50 rounded-2xl p-8 backdrop-blur-sm">
-              <h4 className="text-2xl font-bold text-white mb-6 flex items-center space-x-3">
-                <div className="p-2 bg-gradient-to-r from-purple-500/20 to-pink-400/20 rounded-lg">
-                  <Award size={20} className="text-purple-400" />
+              <h4 className="text-3xl font-bold text-white mb-8 flex items-center space-x-3">
+                <div className="p-3 bg-gradient-to-r from-purple-500/20 to-pink-400/20 rounded-lg">
+                  <Award size={28} className="text-purple-400" />
                 </div>
                 <span>Core Values</span>
               </h4>
               
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {[
-                  { title: "Quality First", desc: "Clean, maintainable code" },
-                  { title: "User-Centric", desc: "Intuitive, accessible design" },
-                  { title: "Innovation", desc: "Latest technologies & trends" },
-                  { title: "Collaboration", desc: "Team player mindset" },
-                  { title: "Continuous Learning", desc: "Always improving skills" },
-                  { title: "Problem Solver", desc: "Creative solution finder" }
+                  { title: "Quality First", desc: "Clean, maintainable code that scales" },
+                  { title: "User-Centric", desc: "Intuitive, accessible design principles" },
+                  { title: "Innovation", desc: "Latest technologies & industry trends" },
+                  { title: "Collaboration", desc: "Strong team player mindset" },
+                  { title: "Continuous Learning", desc: "Always improving and adapting skills" },
+                  { title: "Problem Solver", desc: "Creative solution finder and optimizer" }
                 ].map((value, index) => (
-                  <div key={index} className="group">
-                    <div className="text-cyan-400 font-medium group-hover:text-cyan-300 transition-colors">
+                  <div key={index} className="group p-4 rounded-lg bg-gray-900/30 hover:bg-gray-800/40 transition-colors duration-300">
+                    <div className="text-cyan-400 font-semibold text-lg group-hover:text-cyan-300 transition-colors mb-2">
                       {value.title}
                     </div>
-                    <div className="text-gray-500 text-sm">{value.desc}</div>
+                    <div className="text-gray-400 text-base leading-relaxed">{value.desc}</div>
                   </div>
                 ))}
               </div>
