@@ -270,6 +270,40 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
   }
+
+  /* Name hover animation */
+  .name-hover-effect:hover {
+    animation: name-glow 0.5s ease-in-out;
+    text-shadow: 
+      0 0 20px rgba(56, 255, 98, 0.8),
+      0 0 40px rgba(0, 255, 255, 0.6),
+      0 0 60px rgba(139, 92, 246, 0.4);
+  }
+
+  @keyframes name-glow {
+    0% { 
+      transform: scale(1);
+      filter: brightness(1);
+    }
+    50% { 
+      transform: scale(1.02);
+      filter: brightness(1.2);
+    }
+    100% { 
+      transform: scale(1);
+      filter: brightness(1);
+    }
+  }
+
+  /* Slow pulse for cursor */
+  .slow-pulse {
+    animation: slow-pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes slow-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
 }
 
 @layer utilities {
