@@ -160,19 +160,19 @@ const About = () => {
             
             {/* What I Bring */}
             <div className="mb-8">
-              <h3 className="text-3xl font-bold text-white mb-8 text-center">What I Bring</h3>
+              <h3 className="text-4xl font-bold text-white mb-8 text-center">What I Bring</h3>
               
               <div className="space-y-6">
                 {highlights.map((highlight, index) => (
                   <div key={index} 
-                       className="group bg-gray-800/30 border border-gray-700/50 rounded-xl p-6 hover:border-cyan-500/30 hover:bg-gray-700/30 transition-all duration-300 transform hover:scale-[1.02]">
-                    <div className="flex items-start space-x-4">
-                      <div className={`p-3 bg-gradient-to-r from-${highlight.color}-500/20 to-${highlight.color}-600/20 rounded-lg group-hover:scale-110 transition-transform duration-300`}>
-                        <highlight.icon size={24} className={`text-${highlight.color}-400`} />
+                       className="group bg-gray-800/30 border border-gray-700/50 rounded-xl p-8 hover:border-cyan-500/30 hover:bg-gray-700/30 transition-all duration-300 transform hover:scale-[1.02]">
+                    <div className="flex items-start space-x-6">
+                      <div className={`p-4 bg-gradient-to-r from-${highlight.color}-500/20 to-${highlight.color}-600/20 rounded-lg group-hover:scale-110 transition-transform duration-300`}>
+                        <highlight.icon size={32} className={`text-${highlight.color}-400`} />
                       </div>
                       <div className="flex-1">
-                        <h4 className="text-xl font-semibold text-white mb-2">{highlight.title}</h4>
-                        <p className="text-gray-400 leading-relaxed">{highlight.description}</p>
+                        <h4 className="text-2xl font-semibold text-white mb-3">{highlight.title}</h4>
+                        <p className="text-gray-400 leading-relaxed text-lg">{highlight.description}</p>
                       </div>
                     </div>
                   </div>
