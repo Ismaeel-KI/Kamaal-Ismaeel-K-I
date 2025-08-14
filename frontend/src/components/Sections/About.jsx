@@ -121,7 +121,7 @@ const About = () => {
             </div>
 
             {/* Current Focus */}
-            <div className="bg-gradient-to-r from-gray-800/40 via-gray-800/20 to-gray-800/40 border border-gray-700/50 rounded-2xl p-8 backdrop-blur-sm">
+            <div className="bg-gradient-to-r from-gray-800/40 via-gray-800/20 to-gray-800/40 border border-gray-700/50 rounded-2xl p-6 backdrop-blur-sm">
               <div className="flex items-center space-x-3 mb-6">
                 <div className="p-2 bg-gradient-to-r from-green-500/20 to-cyan-400/20 rounded-lg">
                   <Target size={24} className="text-green-400" />
