@@ -1,107 +1,186 @@
 import React from 'react';
-import { Github, Linkedin, Mail, Phone, MapPin, Zap } from 'lucide-react';
+import { Heart, Code, Coffee, Github, Linkedin, Mail, ExternalLink, ArrowUp } from 'lucide-react';
 import portfolioData from '../../data/mock';
 
 const Footer = () => {
-  const { contact } = portfolioData;
+  const { personal, contact } = portfolioData;
+  const currentYear = new Date().getFullYear();
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const socialLinks = [
+    { icon: Github, href: contact.github, label: 'GitHub' },
+    { icon: Linkedin, href: contact.linkedin, label: 'LinkedIn' },
+    { icon: Mail, href: `mailto:${contact.email}`, label: 'Email' }
+  ];
+
+  const quickLinks = [
+    { label: 'About', href: '#about' },
+    { label: 'Skills', href: '#skills' },
+    { label: 'Projects', href: '#projects' },
+    { label: 'Achievements', href: '#achievements' },
+    { label: 'Contact', href: '#contact' }
+  ];
 
   return (
-    <footer className="border-t border-cyan-500/20 bg-gradient-to-b from-gray-900 to-black relative overflow-hidden">
-      {/* Background effects */}
-      <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/5 via-transparent to-green-400/5"></div>
+    <footer className="relative bg-gradient-to-t from-black via-gray-900 to-gray-800 border-t border-gray-700/50">
       
-      <div className="container mx-auto px-6 py-12 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Brand */}
-          <div>
-            <div className="flex items-center space-x-3 mb-4">
-              <div className="p-2 bg-gradient-to-r from-cyan-500 to-green-400 rounded-none">
-                <Zap size={16} className="text-gray-900" />
+      {/* Background Effects */}
+      <div className="absolute inset-0">
+        <div className="absolute top-0 left-1/4 w-64 h-64 bg-gradient-to-r from-cyan-500/10 to-green-400/10 rounded-full blur-3xl"></div>
+        <div className="absolute top-0 right-1/4 w-80 h-80 bg-gradient-to-r from-purple-500/10 to-pink-400/10 rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="container mx-auto px-6 relative z-10">
+        
+        {/* Main Footer Content */}
+        <div className="py-16">
+          <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-12">
+            
+            {/* Brand & Bio */}
+            <div className="lg:col-span-2">
+              <div className="flex items-center space-x-3 mb-6">
+                <div className="p-3 bg-gradient-to-r from-cyan-500 to-green-400 rounded-lg">
+                  <Code size={24} className="text-gray-900" />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-green-400">
+                    {personal.name}
+                  </h3>
+                  <p className="text-gray-400 text-sm">{personal.title}</p>
+                </div>
               </div>
-              <div className="font-mono text-xl font-bold uppercase tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-green-400">
-                KAMAAL K I
+              
+              <p className="text-gray-300 leading-relaxed mb-6 max-w-md">
+                Passionate full-stack developer creating innovative solutions that bridge the gap between 
+                complex problems and elegant, user-friendly applications.
+              </p>
+
+              {/* Social Links */}
+              <div className="flex items-center space-x-4">
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group p-3 bg-gray-800/50 border border-gray-700/50 rounded-lg hover:border-cyan-500/50 hover:bg-gray-700/50 transition-all duration-300"
+                    title={social.label}
+                  >
+                    <social.icon size={20} className="text-gray-400 group-hover:text-cyan-400 transition-colors" />
+                  </a>
+                ))}
               </div>
             </div>
-            <p className="text-sm leading-relaxed text-gray-400">
-              Computer Science Student specializing in full-stack development, 
-              data analysis, and AI solutions. Building the digital future 
-              one project at a time.
-            </p>
-          </div>
 
-          {/* Contact Info */}
-          <div>
-            <h3 className="font-mono text-xs font-normal uppercase tracking-wider mb-6 text-cyan-400">
-              CONTACT PROTOCOL
-            </h3>
-            <div className="space-y-3">
-              <div className="flex items-center space-x-3 group">
-                <Mail size={16} className="text-green-400 group-hover:text-green-300 transition-colors" />
-                <span className="text-sm text-gray-300 group-hover:text-white transition-colors">
-                  {contact.email}
-                </span>
-              </div>
-              <div className="flex items-center space-x-3 group">
-                <Phone size={16} className="text-cyan-400 group-hover:text-cyan-300 transition-colors" />
-                <span className="text-sm text-gray-300 group-hover:text-white transition-colors">
-                  {contact.phone}
-                </span>
-              </div>
-              <div className="flex items-center space-x-3 group">
-                <MapPin size={16} className="text-purple-400 group-hover:text-purple-300 transition-colors" />
-                <span className="text-sm text-gray-300 group-hover:text-white transition-colors">
-                  {contact.location}
-                </span>
-              </div>
+            {/* Quick Links */}
+            <div>
+              <h4 className="text-lg font-semibold text-white mb-6 flex items-center space-x-2">
+                <ExternalLink size={16} className="text-cyan-400" />
+                <span>Quick Links</span>
+              </h4>
+              <ul className="space-y-3">
+                {quickLinks.map((link) => (
+                  <li key={link.label}>
+                    <button
+                      onClick={() => {
+                        const element = document.querySelector(link.href);
+                        if (element) {
+                          element.scrollIntoView({ behavior: 'smooth' });
+                        }
+                      }}
+                      className="text-gray-400 hover:text-cyan-400 transition-colors duration-300 flex items-center space-x-2 group"
+                    >
+                      <div className="w-1 h-1 bg-cyan-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                      <span>{link.label}</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
             </div>
-          </div>
 
-          {/* Social Links */}
-          <div>
-            <h3 className="font-mono text-xs font-normal uppercase tracking-wider mb-6 text-cyan-400">
-              SOCIAL NETWORK
-            </h3>
-            <div className="flex space-x-4">
-              <a
-                href={contact.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative p-4 border border-gray-700 rounded-none transition-all duration-300 hover:border-cyan-500 hover:scale-110"
-              >
-                <Github size={20} className="text-gray-400 group-hover:text-cyan-400 transition-colors" />
-                <div className="absolute inset-0 bg-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              </a>
-              <a
-                href={contact.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative p-4 border border-gray-700 rounded-none transition-all duration-300 hover:border-green-400 hover:scale-110"
-              >
-                <Linkedin size={20} className="text-gray-400 group-hover:text-green-400 transition-colors" />
-                <div className="absolute inset-0 bg-green-400/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              </a>
+            {/* Contact Info */}
+            <div>
+              <h4 className="text-lg font-semibold text-white mb-6 flex items-center space-x-2">
+                <Mail size={16} className="text-green-400" />
+                <span>Get In Touch</span>
+              </h4>
+              <div className="space-y-4">
+                <div>
+                  <p className="text-gray-400 text-sm mb-1">Email</p>
+                  <a 
+                    href={`mailto:${contact.email}`}
+                    className="text-cyan-400 hover:text-cyan-300 transition-colors"
+                  >
+                    {contact.email}
+                  </a>
+                </div>
+                <div>
+                  <p className="text-gray-400 text-sm mb-1">Location</p>
+                  <p className="text-gray-300">{contact.location}</p>
+                </div>
+                <div>
+                  <p className="text-gray-400 text-sm mb-1">Availability</p>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                    <span className="text-green-400 text-sm">Available for work</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-gray-800">
+        {/* Separator */}
+        <div className="border-t border-gray-700/50"></div>
+
+        {/* Bottom Footer */}
+        <div className="py-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <p className="text-sm font-mono uppercase tracking-wider text-gray-500">
-              © 2024 KAMAAL ISMAEEL K I. ALL SYSTEMS OPERATIONAL.
-            </p>
-            <div className="flex items-center space-x-2">
-              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-              <p className="text-sm text-gray-400">
-                {contact.availability}
-              </p>
+            
+            {/* Copyright */}
+            <div className="flex items-center space-x-2 text-gray-400 text-sm">
+              <span>© {currentYear} {personal.name}.</span>
+              <span>Crafted with</span>
+              <Heart size={14} className="text-red-400" />
+              <span>and</span>
+              <Coffee size={14} className="text-yellow-600" />
             </div>
+
+            {/* Tech Stack */}
+            <div className="flex items-center space-x-4 text-xs text-gray-500">
+              <span>Built with React + FastAPI + MongoDB</span>
+              <span>•</span>
+              <span>Deployed on Emergent</span>
+            </div>
+
+            {/* Back to Top */}
+            <button
+              onClick={scrollToTop}
+              className="group flex items-center space-x-2 px-4 py-2 bg-gray-800/50 border border-gray-700/50 rounded-lg hover:border-cyan-500/50 hover:bg-gray-700/50 transition-all duration-300"
+            >
+              <ArrowUp size={14} className="text-gray-400 group-hover:text-cyan-400 transition-colors" />
+              <span className="text-gray-400 group-hover:text-cyan-400 text-sm transition-colors">Back to Top</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Fun Gaming Message */}
+        <div className="text-center py-6 border-t border-gray-700/30">
+          <div className="inline-flex items-center space-x-2 bg-gray-800/30 border border-gray-700/50 rounded-full px-4 py-2">
+            <Code size={14} className="text-cyan-400" />
+            <span className="text-gray-400 text-xs font-mono">
+              &lt;/&gt; Ready to level up your next project? Let's build something epic! &lt;/&gt;
+            </span>
+            <Code size={14} className="text-green-400" />
           </div>
         </div>
       </div>
 
-      {/* Decorative elements */}
-      <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 via-green-400 to-purple-500"></div>
+      {/* Animated Bottom Border */}
+      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-500 via-green-400 to-purple-500 opacity-50"></div>
     </footer>
   );
 };
