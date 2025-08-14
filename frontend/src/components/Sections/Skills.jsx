@@ -1,186 +1,228 @@
-import React from 'react';
-import { Code, Database, BarChart3, Wrench } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Code, Database, Cpu, Wrench, Cloud, TrendingUp } from 'lucide-react';
 import portfolioData from '../../data/mock';
 
 const Skills = () => {
   const { skills } = portfolioData;
+  const [visibleBars, setVisibleBars] = useState(new Set());
+  const [activeCategory, setActiveCategory] = useState('backend');
+  const sectionRef = useRef(null);
 
-  const SkillBar = ({ skill }) => (
-    <div className="mb-6 group">
-      <div className="flex justify-between items-center mb-3">
-        <span className="font-mono text-sm font-normal uppercase tracking-wider text-gray-200 group-hover:text-cyan-400 transition-colors">
-          {skill.name}
-        </span>
-        <div className="flex items-center space-x-2">
-          <span className="text-xs text-gray-400 font-mono">
-            {skill.experience}
-          </span>
-          <span className="text-xs text-cyan-400 font-mono font-bold">
-            {skill.level}%
-          </span>
-        </div>
-      </div>
-      <div className="relative h-3 bg-gray-800 border border-gray-700 rounded-none overflow-hidden">
-        <div 
-          className="h-full bg-gradient-to-r from-cyan-500 to-green-400 transition-all duration-1000 ease-out relative overflow-hidden"
-          style={{ width: `${skill.level}%` }}
-        >
-          {/* Animated shine effect */}
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] animate-pulse"></div>
-        </div>
-        {/* Skill level markers */}
-        <div className="absolute top-0 right-0 bottom-0 w-px bg-cyan-400 opacity-60"></div>
-      </div>
-    </div>
-  );
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          // Animate skill bars when section becomes visible
+          Object.keys(skills).forEach((category, categoryIndex) => {
+            skills[category].forEach((skill, skillIndex) => {
+              setTimeout(() => {
+                setVisibleBars(prev => new Set([...prev, `${category}-${skillIndex}`]));
+              }, categoryIndex * 200 + skillIndex * 100);
+            });
+          });
+        }
+      },
+      { threshold: 0.2 }
+    );
 
-  const SkillCategory = ({ title, skillList, icon: Icon, accentColor, bgGradient }) => (
-    <div className={`relative p-8 bg-gradient-to-br ${bgGradient} border border-gray-700/50 rounded-none transition-all duration-300 hover:border-${accentColor}-500/50 hover:scale-[1.02] group`}>
-      {/* Category Header */}
-      <div className="flex items-center mb-8">
-        <div className={`p-3 bg-gray-800 border border-${accentColor}-500/30 rounded-none mr-4 group-hover:border-${accentColor}-400 transition-all duration-300`}>
-          <Icon size={24} className={`text-${accentColor}-400`} />
-        </div>
-        <h3 className={`font-mono text-sm font-normal uppercase tracking-wider text-${accentColor}-400`}>
-          {title}
-        </h3>
-      </div>
-      
-      {/* Progress Bars */}
-      <div className="space-y-1">
-        {skillList.map((skill, index) => (
-          <SkillBar key={index} skill={skill} />
-        ))}
-      </div>
-      
-      {/* Hover Effect Overlay */}
-      <div className={`absolute inset-0 bg-${accentColor}-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none`}></div>
-    </div>
-  );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, [skills]);
 
-  const specializations = [
-    {
-      title: "FULL-STACK WEB DEVELOPMENT",
-      description: "End-to-end web application development with modern frameworks and databases",
-      icon: "🚀",
-      color: "cyan"
-    },
-    {
-      title: "DATA VISUALIZATION",
-      description: "Interactive dashboards and analytics with Python libraries and React charts",
-      icon: "📊",
-      color: "green"
-    },
-    {
-      title: "AI INTEGRATION",
-      description: "Building intelligent applications with AI/ML capabilities and NLP features",
-      icon: "🤖",
-      color: "purple"
-    }
+  const categories = [
+    { key: 'backend', label: 'Backend', icon: Code, color: 'cyan' },
+    { key: 'frontend', label: 'Frontend', icon: TrendingUp, color: 'green' },
+    { key: 'database', label: 'Database', icon: Database, color: 'blue' },
+    { key: 'ai_ml', label: 'AI/ML', icon: Cpu, color: 'purple' },
+    { key: 'devops', label: 'DevOps', icon: Cloud, color: 'pink' }
   ];
 
+  const getSkillColor = (level) => {
+    if (level >= 90) return 'from-green-500 to-green-400';
+    if (level >= 80) return 'from-cyan-500 to-cyan-400';
+    if (level >= 70) return 'from-blue-500 to-blue-400';
+    return 'from-gray-500 to-gray-400';
+  };
+
+  const getExperienceColor = (experience) => {
+    const years = parseFloat(experience);
+    if (years >= 3) return 'text-green-400';
+    if (years >= 2) return 'text-cyan-400';
+    if (years >= 1) return 'text-blue-400';
+    return 'text-gray-400';
+  };
+
   return (
-    <section id="skills" className="py-16 bg-gradient-to-b from-slate-900 to-gray-900 relative overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute top-1/4 left-0 w-72 h-72 bg-gradient-radial from-cyan-500/10 to-transparent blur-3xl"></div>
-      <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-gradient-radial from-green-400/10 to-transparent blur-3xl"></div>
+    <section id="skills" ref={sectionRef} className="py-20 bg-gradient-to-b from-gray-900 via-slate-800 to-gray-900 relative overflow-hidden">
       
+      {/* Background Effects */}
+      <div className="absolute inset-0">
+        <div className="absolute top-1/4 left-10 w-72 h-72 bg-gradient-to-r from-cyan-500/10 to-green-400/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 right-10 w-96 h-96 bg-gradient-to-r from-purple-500/10 to-pink-400/10 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-blue-500/5 to-indigo-400/5 rounded-full blur-3xl"></div>
+      </div>
+
       <div className="container mx-auto px-6 relative z-10">
+        
         {/* Section Header */}
-        <div className="mb-16 text-center">
-          <div className="flex items-center justify-center mb-4">
-            <div className="h-px bg-gradient-to-r from-transparent via-green-400 to-transparent flex-1"></div>
-            <p className="font-mono text-xs font-normal uppercase tracking-wider mx-4 text-green-400 bg-gray-900 px-4 py-1 border border-green-500/30">
-              SKILL TREE
-            </p>
-            <div className="h-px bg-gradient-to-r from-transparent via-green-400 to-transparent flex-1"></div>
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center space-x-2 bg-gray-800/50 border border-cyan-500/30 rounded-full px-4 py-2 mb-6">
+            <Wrench size={16} className="text-cyan-400" />
+            <span className="font-mono text-xs text-gray-300 uppercase tracking-wider">Technical Arsenal</span>
           </div>
-          <h2 className="font-bold uppercase tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-cyan-400 to-purple-400"
-              style={{
-                fontSize: 'clamp(36px, 8vw, 120px)',
-                lineHeight: '1',
-                fontFamily: 'ui-sans-serif, system-ui, sans-serif',
-                textShadow: '0 0 30px rgba(34, 197, 94, 0.3)'
-              }}>
-            ABILITIES
-          </h2>
-        </div>
-
-        {/* Skills Grid - More Compact */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-          <SkillCategory 
-            title="BACKEND DEVELOPMENT" 
-            skillList={skills.backend} 
-            icon={Database}
-            accentColor="cyan"
-            bgGradient="from-gray-800 to-gray-900"
-          />
-          <SkillCategory 
-            title="FRONTEND DEVELOPMENT" 
-            skillList={skills.frontend} 
-            icon={Code}
-            accentColor="green"
-            bgGradient="from-gray-800 to-gray-900"
-          />
-          <SkillCategory 
-            title="DATA ANALYSIS" 
-            skillList={skills.dataAnalysis} 
-            icon={BarChart3}
-            accentColor="purple"
-            bgGradient="from-gray-800 to-gray-900"
-          />
-          <SkillCategory 
-            title="TOOLS & OTHERS" 
-            skillList={skills.tools} 
-            icon={Wrench}
-            accentColor="pink"
-            bgGradient="from-gray-800 to-gray-900"
-          />
-        </div>
-
-        {/* Specialization Cards - More Compact */}
-        <div className="mb-12">
-          <h3 className="font-mono text-sm font-normal uppercase tracking-wider mb-8 text-center text-yellow-400">
-            SPECIALIZATION MODULES
-          </h3>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {specializations.map((spec, index) => (
-              <div key={index} className="bg-gray-800/60 border border-gray-700/50 rounded-none p-6 text-center transition-all duration-300 hover:border-cyan-500/50 hover:scale-105 group">
-                <div className="text-3xl mb-4">{spec.icon}</div>
-                <h4 className="font-mono text-xs font-normal uppercase tracking-wider mb-3 text-gray-200 group-hover:text-cyan-400 transition-colors">
-                  {spec.title}
-                </h4>
-                <p className="text-sm text-gray-400 leading-relaxed">
-                  {spec.description}
-                </p>
-                {/* Progress indicator */}
-                <div className="mt-4 h-1 bg-gray-700 rounded-none overflow-hidden">
-                  <div className={`h-full bg-gradient-to-r from-${spec.color}-500 to-${spec.color}-400 w-full transition-all duration-1000 delay-${index * 200}`}></div>
+          <h2 className="text-4xl md:text-6xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-green-400 to-purple-400">
+            Skills & Expertise
+          </h2>
+          
+          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
+            Comprehensive technical stack with hands-on experience across the entire development lifecycle
+          </p>
+        </div>
+
+        {/* Category Navigation */}
+        <div className="flex flex-wrap justify-center gap-4 mb-12">
+          {categories.map((category) => (
+            <button
+              key={category.key}
+              onClick={() => setActiveCategory(category.key)}
+              className={`group flex items-center space-x-3 px-6 py-4 rounded-xl border transition-all duration-300 ${
+                activeCategory === category.key
+                  ? `bg-${category.color}-500/20 border-${category.color}-500/50 text-${category.color}-400`
+                  : 'bg-gray-800/40 border-gray-700/50 text-gray-400 hover:border-cyan-500/30 hover:text-cyan-400'
+              }`}
+            >
+              <category.icon size={20} />
+              <span className="font-semibold">{category.label}</span>
+              <div className="bg-gray-700 text-gray-300 text-xs px-2 py-1 rounded-full">
+                {skills[category.key]?.length || 0}
+              </div>
+            </button>
+          ))}
+        </div>
+
+        {/* Skills Display */}
+        <div className="max-w-6xl mx-auto">
+          <div className="bg-gray-800/30 border border-gray-700/50 rounded-2xl p-8 backdrop-blur-sm">
+            
+            {/* Category Header */}
+            <div className="flex items-center justify-between mb-8">
+              <div className="flex items-center space-x-3">
+                {(() => {
+                  const category = categories.find(cat => cat.key === activeCategory);
+                  return (
+                    <>
+                      <div className={`p-3 bg-gradient-to-r from-${category.color}-500/20 to-${category.color}-600/20 rounded-lg`}>
+                        <category.icon size={24} className={`text-${category.color}-400`} />
+                      </div>
+                      <div>
+                        <h3 className="text-2xl font-bold text-white">{category.label} Skills</h3>
+                        <p className="text-gray-400 text-sm">
+                          {skills[activeCategory]?.length} technologies mastered
+                        </p>
+                      </div>
+                    </>
+                  );
+                })()}
+              </div>
+              
+              {/* Skills Overview */}
+              <div className="hidden md:flex space-x-6 text-sm">
+                <div className="text-center">
+                  <p className="text-green-400 font-bold">Expert</p>
+                  <p className="text-gray-500">90%+</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-cyan-400 font-bold">Advanced</p>
+                  <p className="text-gray-500">80-89%</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-blue-400 font-bold">Proficient</p>
+                  <p className="text-gray-500">70-79%</p>
                 </div>
               </div>
-            ))}
+            </div>
+
+            {/* Skills Grid */}
+            <div className="grid md:grid-cols-2 gap-6">
+              {skills[activeCategory]?.map((skill, index) => (
+                <div key={skill.name} 
+                     className="group bg-gray-900/40 border border-gray-700/30 rounded-xl p-6 hover:border-cyan-500/30 hover:bg-gray-800/40 transition-all duration-300">
+                  
+                  {/* Skill Header */}
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center space-x-3">
+                      <h4 className="text-lg font-semibold text-white group-hover:text-cyan-300 transition-colors">
+                        {skill.name}
+                      </h4>
+                      <span className="bg-gray-700 text-gray-300 text-xs px-2 py-1 rounded-full">
+                        {skill.level}%
+                      </span>
+                    </div>
+                    <div className="text-right">
+                      <p className={`text-sm font-medium ${getExperienceColor(skill.experience)}`}>
+                        {skill.experience}
+                      </p>
+                      <p className="text-xs text-gray-500">
+                        {skill.projects} projects
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Skill Progress Bar */}
+                  <div className="relative">
+                    <div className="h-3 bg-gray-700/50 rounded-full overflow-hidden">
+                      <div 
+                        className={`h-full bg-gradient-to-r ${getSkillColor(skill.level)} rounded-full transition-all duration-1000 ease-out relative overflow-hidden ${
+                          visibleBars.has(`${activeCategory}-${index}`) ? `w-[${skill.level}%]` : 'w-0'
+                        }`}
+                        style={{ width: visibleBars.has(`${activeCategory}-${index}`) ? `${skill.level}%` : '0%' }}
+                      >
+                        {/* Animated shine effect */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                      </div>
+                    </div>
+                    
+                    {/* Skill level indicator */}
+                    <div 
+                      className={`absolute top-0 h-3 w-1 bg-white/60 rounded-full transition-all duration-1000 delay-500 ${
+                        visibleBars.has(`${activeCategory}-${index}`) ? 'opacity-100' : 'opacity-0'
+                      }`}
+                      style={{ left: visibleBars.has(`${activeCategory}-${index}`) ? `${skill.level}%` : '0%' }}
+                    ></div>
+                  </div>
+
+                  {/* Skill Stats */}
+                  <div className="flex justify-between items-center mt-4 text-xs text-gray-500">
+                    <span>Experience: {skill.experience}</span>
+                    <span>{skill.projects} projects completed</span>
+                  </div>
+                </div>
+              )) || []}
+            </div>
           </div>
         </div>
 
-        {/* Gaming Style Stats Summary */}
-        <div className="bg-gradient-to-r from-gray-800 via-gray-900 to-gray-800 border-2 border-cyan-500/30 rounded-none p-8 text-center">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="group">
-              <div className="text-3xl font-bold text-cyan-400 mb-2 group-hover:text-cyan-300 transition-colors">10+</div>
-              <p className="font-mono text-xs uppercase text-gray-400 group-hover:text-gray-300 transition-colors">Technologies</p>
+        {/* Skills Summary */}
+        <div className="mt-16 text-center">
+          <div className="inline-flex flex-wrap justify-center gap-6 bg-gray-800/30 border border-gray-700/50 rounded-2xl p-8 backdrop-blur-sm">
+            <div className="text-center">
+              <p className="text-3xl font-bold text-cyan-400">
+                {Object.values(skills).reduce((total, category) => total + category.length, 0)}+
+              </p>
+              <p className="text-gray-400 text-sm font-mono uppercase">Technologies</p>
             </div>
-            <div className="group">
-              <div className="text-3xl font-bold text-green-400 mb-2 group-hover:text-green-300 transition-colors">3+</div>
-              <p className="font-mono text-xs uppercase text-gray-400 group-hover:text-gray-300 transition-colors">Years XP</p>
+            <div className="text-center">
+              <p className="text-3xl font-bold text-green-400">3+</p>
+              <p className="text-gray-400 text-sm font-mono uppercase">Years Experience</p>
             </div>
-            <div className="group">
-              <div className="text-3xl font-bold text-purple-400 mb-2 group-hover:text-purple-300 transition-colors">5+</div>
-              <p className="font-mono text-xs uppercase text-gray-400 group-hover:text-gray-300 transition-colors">Projects</p>
+            <div className="text-center">
+              <p className="text-3xl font-bold text-purple-400">50+</p>
+              <p className="text-gray-400 text-sm font-mono uppercase">Projects Built</p>
             </div>
-            <div className="group">
-              <div className="text-3xl font-bold text-pink-400 mb-2 group-hover:text-pink-300 transition-colors">∞</div>
-              <p className="font-mono text-xs uppercase text-gray-400 group-hover:text-gray-300 transition-colors">Learning</p>
+            <div className="text-center">
+              <p className="text-3xl font-bold text-pink-400">∞</p>
+              <p className="text-gray-400 text-sm font-mono uppercase">Learning Mode</p>
             </div>
           </div>
         </div>
