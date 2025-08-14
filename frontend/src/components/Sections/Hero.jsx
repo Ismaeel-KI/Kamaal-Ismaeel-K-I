@@ -103,7 +103,7 @@ const Hero = () => {
                    textShadow: '0 0 20px rgba(255, 255, 255, 0.1)'
                  }}>
               <span className="text-cyan-400">&gt;</span> {typedText}
-              <span className="text-green-400 animate-pulse" style={{animationDuration: '1.5s'}}>|</span>
+              <span className="text-green-400 slow-pulse">|</span>
             </div>
             <p className="text-lg text-gray-400 mt-2 font-medium">{personal.subtitle}</p>
           </div>
