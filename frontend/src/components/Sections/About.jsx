@@ -83,20 +83,20 @@ const About = () => {
           <div className={`space-y-6 transform transition-all duration-1000 ${isVisible ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'}`}>
             
             {/* Professional Bio */}
-            <div className="bg-gray-800/40 border border-gray-700/50 rounded-2xl p-6 backdrop-blur-sm hover:border-cyan-500/30 transition-all duration-300">
+            <div className="bg-gray-800/40 border border-gray-700/50 rounded-2xl p-8 backdrop-blur-sm hover:border-cyan-500/30 transition-all duration-300">
               <div className="flex items-center space-x-3 mb-6">
-                <div className="p-2 bg-gradient-to-r from-cyan-500/20 to-green-400/20 rounded-lg">
-                  <GraduationCap size={24} className="text-cyan-400" />
+                <div className="p-3 bg-gradient-to-r from-cyan-500/20 to-green-400/20 rounded-lg">
+                  <GraduationCap size={28} className="text-cyan-400" />
                 </div>
-                <h3 className="text-2xl font-bold text-white">My Journey</h3>
+                <h3 className="text-3xl font-bold text-white">My Journey</h3>
               </div>
               
               <div className="prose prose-invert max-w-none">
-                <p className="text-gray-300 leading-relaxed mb-4">
+                <p className="text-gray-300 leading-relaxed mb-6 text-lg">
                   {personal.bio}
                 </p>
                 
-                <p className="text-gray-400 leading-relaxed">
+                <p className="text-gray-400 leading-relaxed text-base">
                   Currently pursuing my final year in Computer Science Engineering, I've spent the last 3 years 
                   building real-world applications that solve actual business problems. My passion lies in creating 
                   seamless user experiences backed by robust, scalable architecture.
@@ -104,18 +104,18 @@ const About = () => {
               </div>
               
               {/* Quick Stats */}
-              <div className="grid grid-cols-3 gap-4 mt-6 pt-4 border-t border-gray-700/50">
+              <div className="grid grid-cols-3 gap-6 mt-8 pt-6 border-t border-gray-700/50">
                 <div className="text-center">
-                  <p className="text-2xl font-bold text-cyan-400">{personal.projectsCompleted}</p>
-                  <p className="text-xs text-gray-500 uppercase tracking-wide">Projects</p>
+                  <p className="text-3xl font-bold text-cyan-400 mb-1">{personal.projectsCompleted}</p>
+                  <p className="text-sm text-gray-500 uppercase tracking-wide font-medium">Projects</p>
                 </div>
                 <div className="text-center">
-                  <p className="text-2xl font-bold text-green-400">{personal.yearsExperience}</p>
-                  <p className="text-xs text-gray-500 uppercase tracking-wide">Experience</p>
+                  <p className="text-3xl font-bold text-green-400 mb-1">{personal.yearsExperience}</p>
+                  <p className="text-sm text-gray-500 uppercase tracking-wide font-medium">Experience</p>
                 </div>
                 <div className="text-center">
-                  <p className="text-2xl font-bold text-purple-400">{personal.clientsSatisfied}</p>
-                  <p className="text-xs text-gray-500 uppercase tracking-wide">Satisfaction</p>
+                  <p className="text-3xl font-bold text-purple-400 mb-1">{personal.clientsSatisfied}</p>
+                  <p className="text-sm text-gray-500 uppercase tracking-wide font-medium">Satisfaction</p>
                 </div>
               </div>
             </div>
