@@ -14,7 +14,7 @@ const Hero = () => {
       const timeout = setTimeout(() => {
         setTypedText(prev => prev + fullText[currentIndex]);
         setCurrentIndex(prev => prev + 1);
-      }, 100);
+      }, 150);
       return () => clearTimeout(timeout);
     }
   }, [currentIndex, fullText]);
