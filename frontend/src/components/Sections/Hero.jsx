@@ -110,10 +110,10 @@ const Hero = () => {
         </div>
 
         {/* Professional Stats */}
-        <div className="mb-8 flex flex-wrap justify-center gap-6">
+        <div className="mb-12 flex flex-wrap justify-center gap-4">
           {stats.map((stat, index) => (
             <div key={index} 
-                 className="group bg-gray-800/40 border border-cyan-500/20 rounded-lg p-4 backdrop-blur-sm hover:border-cyan-400/50 hover:bg-gray-700/40 transition-all duration-300">
+                 className="group bg-gray-800/40 border border-cyan-500/20 rounded-lg p-4 backdrop-blur-sm hover:border-cyan-400/50 hover:bg-gray-700/40 transition-all duration-300 min-w-[200px]">
               <div className="flex items-center space-x-3">
                 <div className="p-2 bg-gradient-to-r from-cyan-500/20 to-green-400/20 rounded">
                   <stat.icon size={20} className="text-cyan-400" />
