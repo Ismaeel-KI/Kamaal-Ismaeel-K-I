@@ -104,7 +104,7 @@ const About = () => {
               </div>
               
               {/* Quick Stats */}
-              <div className="grid grid-cols-3 gap-4 mt-8 pt-6 border-t border-gray-700/50">
+              <div className="grid grid-cols-3 gap-4 mt-6 pt-4 border-t border-gray-700/50">
                 <div className="text-center">
                   <p className="text-2xl font-bold text-cyan-400">{personal.projectsCompleted}</p>
                   <p className="text-xs text-gray-500 uppercase tracking-wide">Projects</p>
